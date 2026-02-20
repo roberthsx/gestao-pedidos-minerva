@@ -1,75 +1,93 @@
-# Persistência Poliglota
+# Persistência e Eventos (PostgreSQL + Kafka)
 
-Este documento descreve a estratégia de usar **PostgreSQL para escrita** e **MongoDB para leitura**, a sincronização via **Domain Events** e o uso de **Connection Pooling**.
+Este documento descreve a estratégia de persistência em **PostgreSQL** (escrita e leitura) e o uso de **Kafka** para eventos assíncronos no **Minerva Gestão de Pedidos**.
 
 ---
 
 ## Visão Geral
 
-O template adota **CQRS com persistência poliglota**:
+O projeto adota **CQRS** com **um único banco transacional** e **eventos assíncronos**:
 
-- **Write side**: PostgreSQL + Entity Framework Core. Commands persistem na tabela `Users` e garantem consistência transacional.
-- **Read side**: MongoDB com o driver nativo. Queries leem da collection `users` (modelo desnormalizado).
-- **Sincronização**: após um write bem-sucedido, um **Domain Event** é publicado; um handler (**SyncUserToMongoHandler**) replica o dado para o MongoDB.
+- **Persistência**: PostgreSQL + Entity Framework Core. Commands e Queries usam o mesmo banco; a separação é feita por repositórios de escrita (`IOrderRepository`, `IUserRepository`, etc.) e de leitura (`IOrderReadRepository`, `IUserReadRepository`, etc.) com `AsNoTracking` para consultas.
+- **Eventos**: Kafka. A API publica em **order-created** (ao criar pedido) e em **order-approved** (ao aprovar). O **Worker** consome `order-created` e persiste **DeliveryTerm** no PostgreSQL (idempotente por OrderId).
 
 ```mermaid
 flowchart LR
     subgraph Write
-        C[CreateUserCommand]
-        H[CreateUserCommandHandler]
-        R[IUserRepository]
+        C[CreateOrderCommand]
+        H[CreateOrderCommandHandler]
+        R[IOrderRepository]
         PG[(PostgreSQL)]
         C --> H --> R --> PG
     end
-    subgraph Sync
-        E[UserCreatedEvent]
-        SH[SyncUserToMongoHandler]
-        E --> SH
+    subgraph Publish
+        K[Kafka: order-created\norder-approved]
+        H --> K
     end
     subgraph Read
-        Q[GetUserByIdQuery]
-        RR[IUserReadRepository]
-        M[(MongoDB)]
-        Q --> RR --> M
+        Q[GetOrdersPagedQuery]
+        RR[IOrderReadRepository]
+        Q --> RR --> PG
     end
-    H --> E
-    SH --> M
+    subgraph Worker
+        W[OrderCreatedKafkaConsumer]
+        W --> PG
+        K --> W
+    end
 ```
 
 ---
 
-## Por que separar escrita e leitura?
+## Por que PostgreSQL para leitura e escrita?
 
-- **Escala de leitura**: MongoDB pode ser replicado e escalado para muitas leituras sem impactar o banco transacional.
-- **Modelo otimizado por uso**: o read model pode ser desnormalizado (ex.: campos extras para listagens) sem poluir o modelo de escrita.
-- **Resiliência**: leituras continuam mesmo se o Postgres estiver sob carga; o read model é eventualmente consistente.
+- **Simplicidade operacional**: um único banco para transações e consultas; sem sincronização entre Postgres e outro store.
+- **Consistência forte**: leituras sempre refletem o último estado persistido.
+- **Performance de leitura**: repositórios de leitura usam `AsNoTracking()` e `Include` apenas quando necessário, reduzindo overhead.
 
----
-
-## Sincronização via Domain Events
-
-1. **CreateUserCommandHandler** persiste o `User` no Postgres via `IUserRepository.AddAsync`.
-2. O handler publica **UserCreatedEvent** (INotification) com os dados necessários para o read model.
-3. **SyncUserToMongoHandler** (registrado no MediatR, assembly Infrastructure) recebe o evento e insere/atualiza o **UserReadModel** na collection MongoDB `users`.
-
-O evento é **in-process** (MediatR); não há fila externa no template. Para ambientes distribuídos, o mesmo padrão pode ser estendido com um message broker (RabbitMQ, Kafka).
+Se no futuro for necessário escalar leituras, pode-se introduzir um read model em outro store (ex.: MongoDB ou cache) alimentado pelos eventos Kafka, mantendo o mesmo padrão de eventos.
 
 ---
 
-## Connection Pooling
+## Kafka: tópicos e uso
 
-- **PostgreSQL**: na connection string são usados `Pooling=true`, `MinPoolSize` e `MaxPoolSize` (configuráveis em `appsettings` e variáveis de ambiente). O provider Npgsql gerencia o pool.
-- **MongoDB**: o driver usa pool nativo; parâmetros `minPoolSize` e `maxPoolSize` podem ser definidos na connection string (ex.: em `appsettings.Development.json`).
+| Tópico           | Produtor        | Consumidor | Uso |
+|------------------|-----------------|------------|-----|
+| **order-created**  | WebApi (CreateOrder) | Worker     | Worker cria DeliveryTerm (10 dias) no Postgres; idempotente. |
+| **order-created-dlq** | Worker (em falha após retries) | Conciliação manual | Mensagens que falharam no processamento. |
+| **order-approved**  | WebApi (ApproveOrder) | Integrações externas (futuro) | Notificação de pedido aprovado. |
+
+Padrão de nomes de tópicos: **hífens** (ex.: `order-created`, `order-approved`).
+
+Quando **Kafka não está configurado** (ex.: ambiente sem broker), a Infrastructure registra publicadores **NoOp** (não publicam), permitindo que a API e os testes rodem sem Kafka.
+
+---
+
+## Connection Pooling (PostgreSQL)
+
+Na connection string são usados `Pooling=true`, `MinPoolSize` e `MaxPoolSize` (configuráveis em `appsettings` e variáveis de ambiente). O provider Npgsql gerencia o pool.
 
 Isso reduz o custo de abertura/fechamento de conexões e melhora a **performance** sob carga.
 
 ---
 
-## Modo In-Memory (testes e desenvolvimento)
+## Idempotência e concorrência
 
-Para testes e ambientes sem Postgres/Mongo, a configuração **Database:UseInMemory** (ou connection strings vazias) ativa:
+- **Criação de pedido**: a aplicação pode definir uma chave de idempotência (ex.: derivada de CorrelationId/CausationId). Duplicatas (ex.: clique duplo ou reprocessamento) resultam em **409 Conflict** (OrderAlreadyExistsException) ou constraint única no banco.
+- **Worker (order-created)**: se já existir DeliveryTerm para o mesmo OrderId, a mensagem é ignorada e o offset é commitado (idempotência).
 
-- **EF Core In-Memory** para o write side.
-- **InMemoryUserReadRepositoryAdapter**: implementa `IUserReadRepository` usando o próprio `IUserRepository` (write), convertendo `User` em `UserReadModel`. Assim, as Queries continuam funcionando sem MongoDB.
+---
 
-O **SyncUserToMongoHandler** verifica se o `MongoDbContext` está disponível; quando não está (modo in-memory), não executa a sincronização. Assim, a regra de negócio (email único, modelo rico) é testada sem depender de bancos externos.
+## Modo In-Memory (testes)
+
+Para testes e ambientes sem Postgres, a configuração com connection string vazia ou provider **In-Memory** ativa:
+
+- **EF Core In-Memory** para o write/read side.
+- Os mesmos repositórios são usados; não há Kafka em testes unitários (publicadores NoOp ou mocks).
+
+---
+
+## Referências
+
+- [architecture.md](./architecture.md) — Camadas da solução  
+- [architecture-diagram.md](./architecture-diagram.md) — Diagrama de fluxo  
+- Worker: `src/Worker/Minerva.GestaoPedidos.Worker/README.md`  

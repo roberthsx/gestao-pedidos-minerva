@@ -2,6 +2,6 @@
   "Minerva.GestaoPedidos.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\projetos\\Minerva\\Back-end\\src\\Core\\Minerva.GestaoPedidos.Application",
   "Minerva.GestaoPedidos.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\projetos\\Minerva\\Back-end\\src\\Core\\Minerva.GestaoPedidos.Domain",
   "Minerva.GestaoPedidos.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure",
-  "Minerva.GestaoPedidos.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\projetos\\Minerva\\Back-end\\tests\\Minerva.GestaoPedidos.Tests",
+  "Minerva.GestaoPedidos.Tests": "D:\\projetos\\Minerva\\Back-end\\tests\\Minerva.GestaoPedidos.Tests",
   "Minerva.GestaoPedidos.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\projetos\\Minerva\\Back-end\\src\\Presentation\\Minerva.GestaoPedidos.WebApi"
 }

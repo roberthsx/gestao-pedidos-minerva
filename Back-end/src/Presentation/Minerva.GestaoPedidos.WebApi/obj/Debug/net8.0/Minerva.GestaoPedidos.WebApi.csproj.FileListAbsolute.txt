@@ -164,6 +164,7 @@ D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\D
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\Minerva.GestaoPedidos.WebApi.csproj.CoreCompileInputs.cache
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\Minerva.GestaoPedidos.WebApi.MvcApplicationPartsAssemblyInfo.cs
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\Minerva.GestaoPedidos.WebApi.MvcApplicationPartsAssemblyInfo.cache
+D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\Minerva.GestaoPedidos.WebApi.sourcelink.json
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\rjimswa.dswa.cache.json
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -173,6 +174,7 @@ D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\D
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\staticwebassets.development.json
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\swae.build.ex.cache
+D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\Minerva..393AC598.Up2Date
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\Minerva.GestaoPedidos.WebApi.dll
 D:\projetos\Minerva\Back-end\src\Presentation\Minerva.GestaoPedidos.WebApi\obj\Debug\net8.0\refint\Minerva.GestaoPedidos.WebApi.dll

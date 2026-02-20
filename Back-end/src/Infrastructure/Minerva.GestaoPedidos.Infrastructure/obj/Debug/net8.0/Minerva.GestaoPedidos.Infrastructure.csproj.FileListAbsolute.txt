@@ -11,6 +11,7 @@ D:\projetos\Minerva\Back-end\src\Infrastructure\Minerva.GestaoPedidos.Infrastruc
 D:\projetos\Minerva\Back-end\src\Infrastructure\Minerva.GestaoPedidos.Infrastructure\obj\Debug\net8.0\Minerva.GestaoPedidos.Infrastructure.AssemblyInfoInputs.cache
 D:\projetos\Minerva\Back-end\src\Infrastructure\Minerva.GestaoPedidos.Infrastructure\obj\Debug\net8.0\Minerva.GestaoPedidos.Infrastructure.AssemblyInfo.cs
 D:\projetos\Minerva\Back-end\src\Infrastructure\Minerva.GestaoPedidos.Infrastructure\obj\Debug\net8.0\Minerva.GestaoPedidos.Infrastructure.csproj.CoreCompileInputs.cache
+D:\projetos\Minerva\Back-end\src\Infrastructure\Minerva.GestaoPedidos.Infrastructure\obj\Debug\net8.0\Minerva.GestaoPedidos.Infrastructure.sourcelink.json
 D:\projetos\Minerva\Back-end\src\Infrastructure\Minerva.GestaoPedidos.Infrastructure\obj\Debug\net8.0\Minerva..6E542FA7.Up2Date
 D:\projetos\Minerva\Back-end\src\Infrastructure\Minerva.GestaoPedidos.Infrastructure\obj\Debug\net8.0\Minerva.GestaoPedidos.Infrastructure.dll
 D:\projetos\Minerva\Back-end\src\Infrastructure\Minerva.GestaoPedidos.Infrastructure\obj\Debug\net8.0\refint\Minerva.GestaoPedidos.Infrastructure.dll

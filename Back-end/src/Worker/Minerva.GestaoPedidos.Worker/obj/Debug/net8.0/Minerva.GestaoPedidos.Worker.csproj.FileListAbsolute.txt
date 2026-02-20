@@ -79,6 +79,7 @@ D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\n
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\Minerva.GestaoPedidos.Worker.AssemblyInfo.cs
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\Minerva.GestaoPedidos.Worker.csproj.CoreCompileInputs.cache
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\Minerva.GestaoPedidos.Worker.MvcApplicationPartsAssemblyInfo.cache
+D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\Minerva.GestaoPedidos.Worker.sourcelink.json
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\rjimswa.dswa.cache.json
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -88,6 +89,7 @@ D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\n
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\staticwebassets.development.json
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\swae.build.ex.cache
+D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\Minerva..B8078287.Up2Date
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\Minerva.GestaoPedidos.Worker.dll
 D:\projetos\Minerva\Back-end\src\Worker\Minerva.GestaoPedidos.Worker\obj\Debug\net8.0\refint\Minerva.GestaoPedidos.Worker.dll

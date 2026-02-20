@@ -429,11 +429,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\projetos\\Minerva\\Back-end\\src\\Core\\Minerva.GestaoPedidos.Domain\\Minerva.GestaoPedidos.Domain.csproj",
+      "projectUniqueName": "D:\\projetos\\Minerva\\Back-end\\src\\Core\\Minerva.GestaoPedidos.Domain\\Minerva.GestaoPedidos.Domain.csproj",
       "projectName": "Minerva.GestaoPedidos.Domain",
-      "projectPath": "d:\\projetos\\Minerva\\Back-end\\src\\Core\\Minerva.GestaoPedidos.Domain\\Minerva.GestaoPedidos.Domain.csproj",
+      "projectPath": "D:\\projetos\\Minerva\\Back-end\\src\\Core\\Minerva.GestaoPedidos.Domain\\Minerva.GestaoPedidos.Domain.csproj",
       "packagesPath": "C:\\Users\\rober\\.nuget\\packages\\",
-      "outputPath": "d:\\projetos\\Minerva\\Back-end\\src\\Core\\Minerva.GestaoPedidos.Domain\\obj\\",
+      "outputPath": "D:\\projetos\\Minerva\\Back-end\\src\\Core\\Minerva.GestaoPedidos.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

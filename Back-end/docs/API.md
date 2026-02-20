@@ -1,6 +1,6 @@
 # Minerva Gestão de Pedidos — Documentação das APIs
 
-Base URL (exemplo): `https://localhost:7xxx/api` ou `http://localhost:5xxx/api`
+Base URL (exemplo): `https://localhost:7xxx/api/v1` ou `http://localhost:5xxx/api/v1`
 
 ---
 
@@ -12,7 +12,26 @@ A maioria dos endpoints exige **Bearer Token** no header:
 Authorization: Bearer {accessToken}
 ```
 
-Exceções (públicas): `POST /api/auth/login`, `GET /api/users` (conforme implementação atual).
+Exceções (públicas): `POST /api/v1/auth/login`.
+
+Obtenha o token em **POST /api/v1/auth/login** (número de registro e senha).
+
+---
+
+## Envelope de resposta (ApiResponse)
+
+As respostas 2xx e os erros retornam o envelope padronizado:
+
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": null,
+  "errors": null
+}
+```
+
+Em erro: `success: false`, `data: null`, `message` e `errors` preenchidos conforme o tipo de falha.
 
 ---
 
@@ -20,21 +39,21 @@ Exceções (públicas): `POST /api/auth/login`, `GET /api/users` (conforme imple
 
 ### 1.1 Login
 
-**POST** `/api/auth/login`  
+**POST** `/api/v1/auth/login`  
 **Autenticação:** não exigida
 
 **Request (body – JSON):**
 
-| Campo     | Tipo   | Obrigatório | Descrição                          |
-|-----------|--------|-------------|------------------------------------|
-| matricula | string | Sim         | Matrícula do usuário                |
-| senha     | string | Sim         | Senha em texto puro                 |
+| Campo             | Tipo   | Obrigatório | Descrição                          |
+|-------------------|--------|-------------|------------------------------------|
+| registrationNumber| string | Sim         | Número de registro (matrícula) do usuário |
+| senha             | string | Sim         | Senha em texto puro                 |
 
 **Exemplo:**
 
 ```json
 {
-  "matricula": "1001",
+  "registrationNumber": "admin",
   "senha": "Senha@123"
 }
 ```
@@ -46,23 +65,24 @@ Exceções (públicas): `POST /api/auth/login`, `GET /api/users` (conforme imple
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "expiresIn": 3600,
   "user": {
-    "nome": "Admin Sistema",
-    "perfil": "MANAGER"
+    "name": "Admin Sistema",
+    "role": "ADMIN"
   }
 }
 ```
 
 **Response 401:** credenciais inválidas  
-Body: `{ "error": "Matrícula ou senha inválidos." }`
+Body: `{ "error": "Matrícula ou senha inválidos." }` (ou mensagem equivalente em PT).
 
 ---
 
 ## 2. Usuários (Users)
 
+Todos os endpoints de usuários exigem **Bearer Token** (`[Authorize]`).
+
 ### 2.1 Criar usuário
 
-**POST** `/api/users`  
-**Autenticação:** conforme controller (verifique se está com `[Authorize]`)
+**POST** `/api/v1/users`
 
 **Request (body – JSON):**
 
@@ -73,25 +93,13 @@ Body: `{ "error": "Matrícula ou senha inválidos." }`
 | email     | string | Sim         | E-mail      |
 | active    | bool   | Sim         | Ativo       |
 
-**Exemplo:**
-
-```json
-{
-  "firstName": "Maria",
-  "lastName": "Silva",
-  "email": "maria.silva@minerva.com",
-  "active": true
-}
-```
-
-**Response 201:** retorna `UserDto` e header `Location` apontando para `GET /api/users/{id}`.
+**Response 201:** retorna `UserDto` no envelope e header `Location` apontando para `GET /api/v1/users/{id}`.
 
 ---
 
 ### 2.2 Obter usuário por ID
 
-**GET** `/api/users/{id}`  
-**Autenticação:** conforme controller
+**GET** `/api/v1/users/{id}`
 
 **Parâmetros de rota:**
 
@@ -99,17 +107,7 @@ Body: `{ "error": "Matrícula ou senha inválidos." }`
 |------|------|-------------|
 | id   | int  | ID do usuário |
 
-**Response 200:** `UserDto`
-
-```json
-{
-  "id": 1,
-  "firstName": "Maria",
-  "lastName": "Silva",
-  "email": "maria.silva@minerva.com",
-  "active": true
-}
-```
+**Response 200:** `UserDto` no envelope.
 
 **Response 404:** usuário não encontrado.
 
@@ -117,38 +115,65 @@ Body: `{ "error": "Matrícula ou senha inválidos." }`
 
 ### 2.3 Listar todos os usuários
 
-**GET** `/api/users`  
-**Autenticação:** conforme controller
+**GET** `/api/v1/users`
 
-**Response 200:** array de `UserDto`
+**Response 200:** array de `UserDto` no envelope.
+
+---
+
+## 3. Clientes (Customers) — Lookup
+
+**GET** `/api/v1/customers`  
+**Autenticação:** Bearer Token obrigatório
+
+Lista todos os clientes (Id, Name) para dropdowns e seleção em pedidos.
+
+**Response 200:** array de `CustomerLookupDto` no envelope.
 
 ```json
-[
-  {
-    "id": 1,
-    "firstName": "Maria",
-    "lastName": "Silva",
-    "email": "maria.silva@minerva.com",
-    "active": true
-  }
-]
+{
+  "success": true,
+  "data": [
+    { "id": 1, "name": "Minerva Foods" }
+  ],
+  "message": null,
+  "errors": null
+}
 ```
 
 ---
 
-## 3. Pedidos (Orders)
+## 4. Condições de pagamento (Payment Conditions) — Lookup
 
-Todos os endpoints de pedidos exigem **Bearer Token** (`[Authorize]`).  
-Aprovação exige perfil **MANAGER** (`[Authorize(Roles = "MANAGER")]`).
+**GET** `/api/v1/payment-conditions`  
+**Autenticação:** Bearer Token obrigatório
+
+Lista todas as condições de pagamento para dropdowns.
+
+**Response 200:** array de `PaymentConditionLookupDto` no envelope.
+
+| Campo                | Tipo  | Descrição                    |
+|----------------------|-------|------------------------------|
+| id                   | int   | ID da condição               |
+| description          | string| Descrição (ex.: "30/60/90")  |
+| numberOfInstallments | int   | Número de parcelas           |
 
 ---
 
-### 3.1 Listar pedidos (GET paginado)
+## 5. Pedidos (Orders)
 
-**GET** `/api/orders`  
+Todos os endpoints de pedidos exigem **Bearer Token** (`[Authorize]`).  
+**Criar pedido** exige perfil **ADMIN** ou **MANAGER**.  
+**Aprovar pedido** exige perfil **ADMIN**, **MANAGER** ou **ANALYST**.
+
+---
+
+### 5.1 Listar pedidos (GET paginado)
+
+**GET** `/api/v1/orders`  
 **Autenticação:** Bearer Token obrigatório
 
-Consulta feita **somente na camada de leitura (MongoDB)**.
+Consulta feita na camada de leitura (**PostgreSQL**, `IOrderReadRepository`).
 
 **Query parameters:**
 
@@ -163,43 +188,49 @@ Consulta feita **somente na camada de leitura (MongoDB)**.
 **Exemplos de URL:**
 
 ```http
-GET /api/orders
-GET /api/orders?status=Pago
-GET /api/orders?dateFrom=2025-01-01&dateTo=2025-01-31
-GET /api/orders?pageNumber=2&pageSize=10
-GET /api/orders?status=Criado&pageNumber=1&pageSize=20
+GET /api/v1/orders
+GET /api/v1/orders?status=Pago
+GET /api/v1/orders?dateFrom=2025-01-01&dateTo=2025-01-31
+GET /api/v1/orders?pageNumber=2&pageSize=10
 ```
 
-**Response 200 – contrato de resposta paginada:**
+**Response 200 – contrato de resposta paginada (em `data`):**
 
 ```json
 {
-  "items": [
-    {
-      "id": 1,
-      "customerId": 1,
-      "customerName": "Minerva Foods",
-      "paymentConditionId": 1,
-      "paymentConditionDescription": "30/60/90",
-      "orderDate": "2025-02-10T14:30:00Z",
-      "totalAmount": 6000.00,
-      "status": "Criado",
-      "requiresManualApproval": true,
-      "deliveryDays": 0,
-      "estimatedDeliveryDate": null,
-      "items": [
-        {
-          "productName": "Produto A",
-          "quantity": 10,
-          "unitPrice": 600.00,
-          "totalPrice": 6000.00
-        }
-      ]
-    }
-  ],
-  "totalCount": 42,
-  "pageNumber": 1,
-  "pageSize": 20
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": 1,
+        "customerId": 1,
+        "customerName": "Minerva Foods",
+        "paymentConditionId": 1,
+        "paymentConditionDescription": "30/60/90",
+        "orderDate": "2025-02-10T14:30:00Z",
+        "totalAmount": 6000.00,
+        "status": "Criado",
+        "requiresManualApproval": true,
+        "deliveryDays": 0,
+        "estimatedDeliveryDate": null,
+        "approvedBy": null,
+        "approvedAt": null,
+        "items": [
+          {
+            "productName": "Produto A",
+            "quantity": 10,
+            "unitPrice": 600.00,
+            "totalPrice": 6000.00
+          }
+        ]
+      }
+    ],
+    "totalCount": 42,
+    "pageNumber": 1,
+    "pageSize": 20
+  },
+  "message": null,
+  "errors": null
 }
 ```
 
@@ -212,10 +243,10 @@ GET /api/orders?status=Criado&pageNumber=1&pageSize=20
 
 ---
 
-### 3.2 Criar pedido
+### 5.2 Criar pedido
 
-**POST** `/api/orders`  
-**Autenticação:** Bearer Token obrigatório
+**POST** `/api/v1/orders`  
+**Autenticação:** Bearer Token com perfil **ADMIN** ou **MANAGER** (403 para ANALYST)
 
 **Request (body – JSON):**
 
@@ -256,20 +287,22 @@ Cada item em `items`:
 }
 ```
 
-**Response 201:** retorna `OrderDto` do pedido criado e header `Location` para a listagem (ex.: `GET /api/orders`).
+**Response 201:** retorna `OrderDto` no envelope e header `Location` para a listagem (ex.: `GET /api/v1/orders`).
 
 **Regras de negócio (resumo):**  
 - Total > 5000: `status = Criado`, `requiresManualApproval = true`.  
 - Total ≤ 5000: `status = Pago`, `requiresManualApproval = false`.
 
-**Erros:** 400 (validação), 404 (cliente ou condição de pagamento não encontrados).
+A API publica no Kafka (tópico `order-created`) para processamento assíncrono (ex.: criação de prazo de entrega no Worker). Em duplicata (idempotência), retorna **409 Conflict**.
+
+**Erros:** 400 (validação), 403 (ANALYST não pode criar), 404 (cliente ou condição de pagamento não encontrados), 409 (pedido já processado/idempotência).
 
 ---
 
-### 3.3 Aprovar pedido
+### 5.3 Aprovar pedido
 
-**PUT** `/api/orders/{orderId}/approve`  
-**Autenticação:** Bearer Token com perfil **MANAGER**
+**PUT** `/api/v1/orders/{orderId}/approve`  
+**Autenticação:** Bearer Token com perfil **ADMIN**, **MANAGER** ou **ANALYST**
 
 **Parâmetros de rota:**
 
@@ -279,34 +312,27 @@ Cada item em `items`:
 
 **Request:** sem body.
 
-**Exemplo:**
-
-```http
-PUT /api/orders/1/approve
-Authorization: Bearer {token}
-```
-
-**Response 200:** retorna `OrderDto` do pedido já com `status = "Pago"`.
+**Response 200:** retorna `OrderDto` no envelope, com `status = "Pago"`, `approvedBy` (matrícula) e `approvedAt` preenchidos.
 
 **Erros:**
 
 | Status | Situação                          | Exemplo de mensagem |
 |--------|-----------------------------------|----------------------|
-| 400    | Pedido já pago                    | "Cannot approve order: order is already paid." |
-| 400    | Pedido cancelado                  | "Cannot approve order: order is canceled." |
-| 400    | Não exige aprovação manual        | "Order does not require manual approval." |
-| 403    | Usuário sem perfil MANAGER        | - |
+| 400    | Pedido já pago                    | "Order is already paid." |
+| 400    | Pedido cancelado                  | "Cannot approve a canceled order." |
+| 400    | Não exige aprovação manual        | (regra de negócio) |
+| 403    | Usuário sem perfil permitido      | - |
 | 404    | Pedido não encontrado             | "Order '1' was not found." |
 
 ---
 
-## 4. Contrato padrão de resposta paginada
+## 6. Contrato padrão de resposta paginada
 
-Para qualquer **GET paginado** na API, use o mesmo contrato:
+Para **GET /api/v1/orders**, o `data` segue o contrato `PagedResponse<T>`:
 
 ```json
 {
-  "items": [ /* array de DTOs da entidade */ ],
+  "items": [ /* array de OrderDto */ ],
   "totalCount": 0,
   "pageNumber": 1,
   "pageSize": 20
@@ -314,16 +340,13 @@ Para qualquer **GET paginado** na API, use o mesmo contrato:
 ```
 
 - **items:** registros da página atual.  
-- **totalCount:** total de registros que atendem ao filtro (para calcular total de páginas: `Math.Ceil(totalCount / pageSize)`).  
+- **totalCount:** total de registros que atendem ao filtro.  
 - **pageNumber:** página solicitada (1-based).  
 - **pageSize:** quantidade de itens por página.
 
-**Back-end:** o tipo genérico usado é `PagedResponse<T>` (ex.: `GET /api/orders` retorna `PagedResponse<OrderDto>`). Todas as listagens paginadas devem retornar esse mesmo contrato.
-
-**Exemplo de uso no front-end (JavaScript/TypeScript):**
+**Exemplo de uso no front-end (TypeScript):**
 
 ```typescript
-// Tipo genérico para qualquer listagem paginada
 interface PagedResponse<T> {
   items: T[];
   totalCount: number;
@@ -331,42 +354,63 @@ interface PagedResponse<T> {
   pageSize: number;
 }
 
-// GET /api/orders?pageNumber=1&pageSize=10
-const totalPages = Math.ceil(response.totalCount / response.pageSize);
-const hasNext = response.pageNumber < totalPages;
+const totalPages = Math.ceil(response.data.totalCount / response.data.pageSize);
+const hasNext = response.data.pageNumber < totalPages;
 ```
 
 ---
 
-## 5. Tratamento de erros (RFC 7807)
+## 7. Tratamento de erros (envelope ApiResponse)
 
-Em caso de erro, a API pode retornar **Problem Details** (JSON):
+Em caso de erro, a API retorna **envelope ApiResponse** com `success: false`:
 
 ```json
 {
-  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-  "title": "Bad Request",
-  "status": 400,
-  "detail": "Cannot approve order: order is already paid.",
-  "instance": "/api/orders/1/approve"
+  "success": false,
+  "data": null,
+  "message": "Um ou mais erros de validação ocorreram.",
+  "errors": ["'Customer Id' must be greater than '0'.", "'Items' must not be empty."]
 }
 ```
 
-Em **Development**, o corpo pode incluir `stackTrace` e `errors` (validação).
+Em **Development**, respostas 500 podem incluir detalhes adicionais em `errors` (ex.: stack trace) para facilitar debug.
+
+| Exceção / Situação        | HTTP Status | Uso |
+|---------------------------|------------|-----|
+| Validação (FluentValidation) | 400        | Request inválido |
+| BadRequestException       | 400        | Requisição inválida |
+| UnauthorizedAccessException | 401      | Não autorizado |
+| NotFoundException         | 404        | Recurso não encontrado |
+| OrderAlreadyExistsException (idempotência) | 409 | Pedido já processado |
+| ConflictException / BusinessException | 422 | Regra de negócio violada |
+| InfrastructureException / ServiceUnavailableException | 503 | Falha de infraestrutura |
+| Demais                    | 500        | Erro interno |
 
 ---
 
-## 6. Resumo dos endpoints
+## 8. Resumo dos endpoints
 
-| Método | Rota                          | Auth     | Descrição              |
-|--------|--------------------------------|----------|------------------------|
-| POST   | /api/auth/login               | Não      | Login (matrícula/senha) |
-| POST   | /api/users                    | Conforme controller | Criar usuário |
-| GET    | /api/users/{id}               | Conforme controller | Usuário por ID |
-| GET    | /api/users                    | Conforme controller | Listar usuários |
-| GET    | /api/orders                   | Bearer   | Listar pedidos (paginado, MongoDB) |
-| POST   | /api/orders                   | Bearer   | Criar pedido           |
-| PUT    | /api/orders/{orderId}/approve | Bearer + MANAGER | Aprovar pedido |
+| Método | Rota                                | Auth     | Descrição              |
+|--------|-------------------------------------|----------|------------------------|
+| POST   | /api/v1/auth/login                  | Não      | Login (registrationNumber/senha) |
+| POST   | /api/v1/users                       | Bearer   | Criar usuário          |
+| GET    | /api/v1/users/{id}                  | Bearer   | Usuário por ID         |
+| GET    | /api/v1/users                       | Bearer   | Listar usuários        |
+| GET    | /api/v1/customers                   | Bearer   | Lookup de clientes     |
+| GET    | /api/v1/payment-conditions          | Bearer   | Lookup de condições de pagamento |
+| GET    | /api/v1/orders                      | Bearer   | Listar pedidos (paginado, Postgres) |
+| POST   | /api/v1/orders                      | Bearer (ADMIN/MANAGER) | Criar pedido |
+| PUT    | /api/v1/orders/{orderId}/approve    | Bearer (ADMIN/MANAGER/ANALYST) | Aprovar pedido |
+
+---
+
+## 9. Health e Swagger
+
+| Endpoint        | Descrição |
+|-----------------|-----------|
+| GET /health/live | Liveness (processo vivo). |
+| GET /health      | Readiness (PostgreSQL, Kafka, migrações). |
+| /swagger         | Documentação Swagger da API. |
 
 ---
 

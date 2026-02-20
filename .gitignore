@@ -1,0 +1,49 @@
+# .NET Core / .NET 5+
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code files
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet Packages
+*.nupkg
+# As pastas de pacotes costumam ser restauradas automaticamente
+**/packages/*
+!**/packages/build/
+
+# Entity Framework / SQL Server
+*.mdf
+*.ldf
+*.ndf
+
+# Local settings / Secrets (NUNCA versione arquivos com senhas)
+appsettings.Development.json
+appsettings.Local.json
+*.usersecrets
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Test results e Coverage
+TestResults/
+*.trx
+*.coverage

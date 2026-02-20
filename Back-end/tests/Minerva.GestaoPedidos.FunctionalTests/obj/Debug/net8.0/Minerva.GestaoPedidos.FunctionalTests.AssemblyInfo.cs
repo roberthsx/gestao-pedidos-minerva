@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Minerva.GestaoPedidos.FunctionalTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24999c6369096ea2a9c29539450f282587b06aa5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Minerva.GestaoPedidos.FunctionalTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Minerva.GestaoPedidos.FunctionalTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

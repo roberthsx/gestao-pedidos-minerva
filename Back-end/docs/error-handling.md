@@ -1,71 +1,90 @@
 # Tratamento de Erros
 
-Este documento descreve o uso do padrão **RFC 7807 (Problem Details)**, do **IExceptionHandler** (.NET 8+) e a escolha do status **422** para erros de negócio.
+Este documento descreve o uso do **GlobalExceptionHandlerMiddleware**, do envelope **ApiResponse** e o mapeamento de exceções para códigos HTTP no **Minerva Gestão de Pedidos**.
 
 ---
 
-## RFC 7807 (Problem Details)
+## Envelope ApiResponse
 
-O template adota **Problem Details for HTTP APIs** (RFC 7807 / RFC 9457) para respostas de erro: um JSON padronizado com campos como `type`, `title`, `status`, `detail`, `instance` e extensões customizadas.
-
-Exemplo (validação):
+A API utiliza um **envelope padronizado** para respostas de sucesso e de erro (não RFC 7807 Problem Details):
 
 ```json
 {
-  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-  "title": "One or more validation errors occurred.",
-  "status": 400,
-  "detail": "The request is invalid.",
-  "instance": "/api/users",
-  "errors": {
-    "Email": ["'Email' is required."],
-    "FirstName": ["'First Name' must not be empty."]
-  }
+  "success": true,
+  "data": { ... },
+  "message": null,
+  "errors": null
 }
 ```
 
-Benefícios: **contrato estável** para clientes, **machine-readable** e **extensível** via `extensions` (ex.: `errors`, `stackTrace` em Development).
+Em erro:
+
+```json
+{
+  "success": false,
+  "data": null,
+  "message": "Um ou mais erros de validação ocorreram.",
+  "errors": ["'Customer Id' must be greater than '0'."]
+}
+```
+
+Benefícios: **contrato estável** para clientes, respostas 2xx e 4xx/5xx no mesmo formato e **extensibilidade** (ex.: em Development, `errors` pode incluir stack trace para 500).
 
 ---
 
-## IExceptionHandler (.NET 8+)
+## GlobalExceptionHandlerMiddleware
 
-Em vez de um middleware manual, o template usa o **IExceptionHandler**:
+Em vez de um `IExceptionHandler` (.NET 8+), o projeto usa um **middleware** customizado:
 
-- **GlobalExceptionHandler** (`WebApi/Handlers/GlobalExceptionHandler.cs`) implementa `IExceptionHandler`.
-- Registro: `AddExceptionHandler<GlobalExceptionHandler>()` e `AddProblemDetails()` no `Program.cs`.
-- Pipeline: `app.UseExceptionHandler();` (sem middleware customizado).
+- **GlobalExceptionHandlerMiddleware** (`WebApi/Middleware/GlobalExceptionHandlerMiddleware.cs`) envolve o pipeline e captura exceções não tratadas.
+- Registro: o middleware é adicionado ao pipeline em `Program.cs` com `app.UseMiddleware<GlobalExceptionHandlerMiddleware>()`.
+- Fluxo: exceção → log (com CorrelationId) → construção do corpo ApiResponse (status, message, errors) → escrita na resposta HTTP.
 
-O handler recebe a exceção, decide o status/título/detalhe e delega a **serialização** ao **IProblemDetailsService**, garantindo que todas as respostas de erro sigam o formato RFC 7807.
+O middleware também trata exceções de **idempotência** (OrderAlreadyExistsException) com log em nível Warning, sem stack trace no corpo.
 
 ---
 
 ## Mapeamento de Exceções
 
-| Exceção | HTTP Status | Título | Uso |
-|---------|-------------|--------|-----|
-| **ValidationException** | 400 Bad Request | One or more validation errors occurred. | Falha nos validadores FluentValidation (request inválido). |
-| **NotFoundException** | 404 Not Found | Not Found | Recurso não encontrado (ex.: usuário por id). |
-| **UnauthorizedAccessException** | 401 Unauthorized | Unauthorized | Acesso não autorizado. |
-| **ConflictException** | **422 Unprocessable Entity** | Conflict | Regra de negócio violada (ex.: e-mail duplicado). |
-| **Demais** | 500 Internal Server Error | An unexpected error occurred. | Erros não mapeados. |
+| Exceção / Situação        | HTTP Status | Uso |
+|---------------------------|-------------|-----|
+| **ValidationException**   | 400 Bad Request | Falha nos validadores FluentValidation (request inválido). |
+| **BadRequestException**   | 400 Bad Request | Requisição inválida (mensagem customizada). |
+| **NotFoundException**     | 404 Not Found | Recurso não encontrado (ex.: pedido, usuário, cliente). |
+| **UnauthorizedAccessException** | 401 Unauthorized | Acesso não autorizado. |
+| **ConflictException**     | **422 Unprocessable Entity** | Regra de negócio violada (ex.: e-mail duplicado, pedido já pago). |
+| **BusinessException**     | **422 Unprocessable Entity** | Outras violações de regra de negócio. |
+| **OrderAlreadyExistsException** | **409 Conflict** | Pedido já processado (idempotência / concorrência). |
+| **InfrastructureException** / **ServiceUnavailableException** | **503 Service Unavailable** | Falha de infraestrutura (ex.: banco indisponível). |
+| **Demais**                | 500 Internal Server Error | Erros não mapeados. |
 
 ---
 
 ## Por que 422 para erros de negócio?
 
-- **409 Conflict** é mais associado a conflito de versão (optimistic concurrency) ou recurso já existente em sentido “HTTP de recurso”.
-- **422 Unprocessable Entity** indica que o servidor **entendeu** o pedido (sintaxe e tipo corretos), mas **não pode processá-lo** por restrições **semânticas/regras de negócio** (ex.: “este e-mail já está em uso”).
+- **409 Conflict** é reservado para conflito de recurso (ex.: idempotência, duplicata de pedido) — **OrderAlreadyExistsException** retorna 409.
+- **422 Unprocessable Entity** indica que o servidor **entendeu** o pedido (sintaxe e tipo corretos), mas **não pode processá-lo** por restrições **semânticas/regras de negócio** (ex.: “este e-mail já está em uso”, “pedido já está pago”).
 
-Assim, **ConflictException** (ex.: email duplicado) retorna **422** com `detail` contendo a mensagem de negócio (ex.: “The email is already in use.”), mantendo 400 para erros de **validação de entrada** e 409 reservado para outros tipos de conflito, se necessário no futuro.
+Assim, **ConflictException** e **BusinessException** retornam **422** com `message` e `errors` contendo a mensagem de negócio; 400 fica para **validação de entrada** e 409 para **conflito de recurso/idempotência**.
 
 ---
 
-## Segurança: StackTrace só em Development
+## Segurança: StackTrace só em não-Produção
 
-O **GlobalExceptionHandler** adiciona o **StackTrace** ao `ProblemDetails` apenas quando `_environment.IsDevelopment()`:
+O **GlobalExceptionHandlerMiddleware** adiciona o **StackTrace** ao array `errors` apenas quando **não está em Production** e o status é 500:
 
-- **Development**: `problemDetails.Extensions["stackTrace"] = exception.StackTrace` para facilitar debug.
-- **Production**: nenhum stack trace na resposta; apenas título, status e detalhe controlados, evitando vazamento de informações sensíveis.
+- **Development / outros**: `errors` pode incluir o stack trace para facilitar debug.
+- **Production**: nenhum stack trace na resposta; apenas `message` e `errors` controlados, evitando vazamento de informações sensíveis.
 
 Logs de erro (ex.: `_logger.LogError`) continuam podendo registrar o stack trace no servidor, sem expô-lo ao cliente.
+
+---
+
+## Filtro de envelope para respostas 2xx/4xx dos controllers
+
+O **ApiResponseEnvelopeFilter** encapsula respostas dos controllers no envelope ApiResponse:
+
+- **OkObjectResult** e **CreatedAtActionResult**: valor envolvido em `ApiResponse.Ok(value)`.
+- **BadRequestObjectResult** e **UnauthorizedObjectResult**: convertidos em `ApiResponse.Failure(...)` com status 400 ou 401.
+
+Assim, tanto sucesso quanto erros retornados pelos controllers (antes de chegar ao middleware) seguem o mesmo contrato.

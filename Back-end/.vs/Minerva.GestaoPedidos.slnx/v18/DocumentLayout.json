@@ -64,7 +64,7 @@
               "RelativeDocumentMoniker": "tests\\Minerva.GestaoPedidos.FunctionalTests\\Helpers\\AuthHelper.cs",
               "ToolTip": "D:\\projetos\\Minerva\\Back-end\\tests\\Minerva.GestaoPedidos.FunctionalTests\\Helpers\\AuthHelper.cs",
               "RelativeToolTip": "tests\\Minerva.GestaoPedidos.FunctionalTests\\Helpers\\AuthHelper.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAIAwwCsAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAApwCsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-19T00:34:46.581Z",
               "EditorCaption": ""
@@ -79,8 +79,7 @@
               "RelativeToolTip": "src\\Worker\\Minerva.GestaoPedidos.Worker\\OrderCreatedKafkaConsumerHostedService.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAowC8AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T23:15:49.519Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-18T23:15:49.519Z"
             },
             {
               "$type": "Document",
@@ -92,8 +91,7 @@
               "RelativeToolTip": "src\\Worker\\Minerva.GestaoPedidos.Worker\\Program.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T21:58:45.74Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-18T21:58:45.74Z"
             },
             {
               "$type": "Document",
@@ -105,8 +103,7 @@
               "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaMessageBus.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T21:37:24.969Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-18T21:37:24.969Z"
             },
             {
               "$type": "Document",
@@ -118,8 +115,7 @@
               "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderCreatedPayloadMapper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T21:36:49.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-18T21:36:49.474Z"
             },
             {
               "$type": "Document",
@@ -131,8 +127,7 @@
               "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderApprovedPayloadMapper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T21:36:41.39Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-18T21:36:41.39Z"
             },
             {
               "$type": "Document",
@@ -144,8 +139,7 @@
               "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.LoggerMessage.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T21:35:04.118Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-18T21:35:04.118Z"
             },
             {
               "$type": "Document",
@@ -157,8 +151,7 @@
               "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T21:35:01.544Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-18T21:35:01.544Z"
             }
           ]
         },
