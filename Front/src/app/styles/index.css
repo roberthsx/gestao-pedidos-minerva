@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --minerva-navy: #003366;
+    --minerva-green: #8CC63F;
+    --minerva-blue: #0072CE;
+  }
+  body {
+    @apply min-h-screen bg-slate-50 text-slate-900 antialiased font-sans;
+  }
+  #root {
+    @apply min-h-screen;
+  }
+  a {
+    @apply text-minerva-blue hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-minerva-blue focus-visible:ring-offset-2;
+  }
+}

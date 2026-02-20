@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>Minerva.GestaoPedidos.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.21" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Core\Minerva.GestaoPedidos.Application\Minerva.GestaoPedidos.Application.csproj" />
+    <ProjectReference Include="..\..\src\Core\Minerva.GestaoPedidos.Domain\Minerva.GestaoPedidos.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\Minerva.GestaoPedidos.Infrastructure\Minerva.GestaoPedidos.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

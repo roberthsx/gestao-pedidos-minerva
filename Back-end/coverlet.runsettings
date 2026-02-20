@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <Include>[Minerva.GestaoPedidos.Domain]*,[Minerva.GestaoPedidos.Application]*,[Minerva.GestaoPedidos.Infrastructure]*</Include>
+          <Exclude>[*.Tests]*,[*.Test]*</Exclude>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

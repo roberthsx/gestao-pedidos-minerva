@@ -1,0 +1,127 @@
+# Rede única para que API e Worker resolvam os nomes dos containers (DNS interno).
+networks:
+  minerva_net:
+    driver: bridge
+
+services:
+  init_kafka:
+    container_name: minerva_init_kafka
+    image: apache/kafka:3.9.0
+    restart: "no"
+    depends_on:
+      minerva_gestaopedidos_kafka: { condition: service_healthy }
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        sleep 10
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server minerva_gestaopedidos_kafka:9092 --create --if-not-exists --topic order-created --partitions 1 --replication-factor 1
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server minerva_gestaopedidos_kafka:9092 --create --if-not-exists --topic order-created-dlq --partitions 1 --replication-factor 1
+        echo "Topics order-created e order-created-dlq criados."
+    networks:
+      - minerva_net
+
+  gestpedidos_api:
+    container_name: gestpedidos_api
+    image: minerva-gestaopedidos-webapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
+      - ConnectionStrings__Postgres=Host=minerva_gestaopedidos_postgres;Port=5432;Database=minerva_db;Username=minerva;Password=Minerva@2026;Pooling=true;MinPoolSize=5;MaxPoolSize=100
+      - Database__UseInMemory=false
+      - Kafka__BootstrapServers=minerva_gestaopedidos_kafka:9092
+    ports:
+      - "5002:8080"
+    depends_on:
+      minerva_gestaopedidos_postgres: { condition: service_healthy }
+      minerva_gestaopedidos_kafka: { condition: service_healthy }
+      init_kafka: { condition: service_completed_successfully }
+    networks:
+      - minerva_net
+
+  gestpedidos_worker:
+    container_name: gestpedidos_worker
+    image: minerva-gestaopedidos-worker
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
+      - ConnectionStrings__Postgres=Host=minerva_gestaopedidos_postgres;Port=5432;Database=minerva_db;Username=minerva;Password=Minerva@2026;Pooling=true;MinPoolSize=5;MaxPoolSize=100
+      - Kafka__BootstrapServers=minerva_gestaopedidos_kafka:9092
+      # Força leitura do tópico desde o início ao atribuir partições (evita offset já commitado). Pode definir false após confirmar que processa.
+      - Kafka__ConsumerSeekToEarliestOnStart=true
+    restart: unless-stopped
+    depends_on:
+      minerva_gestaopedidos_postgres: { condition: service_healthy }
+      minerva_gestaopedidos_kafka: { condition: service_healthy }
+      init_kafka: { condition: service_completed_successfully }
+    networks:
+      - minerva_net
+
+  minerva_gestaopedidos_postgres:
+    container_name: minerva_gestaopedidos_postgres
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=minerva_db
+      - POSTGRES_USER=minerva
+      - POSTGRES_PASSWORD=Minerva@2026
+    ports:
+      - "5434:5432"
+    # Scripts em /docker-entrypoint-initdb.d rodam apenas na primeira inicialização (volume vazio).
+    # Se o volume já existia antes dos scripts: remova o volume para forçar reexecução:
+    #   docker compose down -v
+    #   docker volume rm back-end_minerva_gestaopedidos_pgdata
+    #   docker compose up -d
+    volumes:
+      - minerva_gestaopedidos_pgdata:/var/lib/postgresql/data
+      - ./solutionItens/DatabaseScripts/postgres:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U minerva -d minerva_db"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - minerva_net
+
+  minerva_gestaopedidos_kafka:
+    container_name: minerva_gestaopedidos_kafka
+    image: apache/kafka:3.9.0
+    restart: unless-stopped
+    ports:
+      - "9092:9092"
+      - "9094:9094"
+    environment:
+      CLUSTER_ID: "4L6_S_SuTze9KQBW8S2igw"
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      # Listeners explícitos: host vazio (://:porta) = bind em todas as interfaces (0.0.0.0 em LISTENERS pode ser propagado a advertised e rejeitado por esta imagem).
+      # INTERNAL=9092 (API/Worker), EXTERNAL=9094 (host), CONTROLLER=9093 (KRaft).
+      KAFKA_LISTENERS: "INTERNAL://:9092,EXTERNAL://:9094,CONTROLLER://:9093"
+      KAFKA_ADVERTISED_LISTENERS: "INTERNAL://minerva_gestaopedidos_kafka:9092,EXTERNAL://localhost:9094"
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@minerva_gestaopedidos_kafka:9093"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT"
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      # Single-node: permite criar __consumer_offsets e transaction state sem falha de replicação.
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    volumes:
+      - minerva_kafka_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "/opt/kafka/bin/kafka-broker-api-versions.sh", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    networks:
+      - minerva_net
+
+volumes:
+  minerva_gestaopedidos_pgdata:
+  minerva_kafka_data:

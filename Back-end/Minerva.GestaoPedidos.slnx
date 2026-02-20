@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Core/">
+    <Project Path="src/Core/Minerva.GestaoPedidos.Application/Minerva.GestaoPedidos.Application.csproj" />
+    <Project Path="src/Core/Minerva.GestaoPedidos.Domain/Minerva.GestaoPedidos.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="src/Infrastructure/Minerva.GestaoPedidos.Infrastructure/Minerva.GestaoPedidos.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Presentation/">
+    <Project Path="src/Presentation/Minerva.GestaoPedidos.WebApi/Minerva.GestaoPedidos.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/src/Workers/">
+    <Project Path="src/Worker/Minerva.GestaoPedidos.Worker/Minerva.GestaoPedidos.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Minerva.GestaoPedidos.FunctionalTests/Minerva.GestaoPedidos.FunctionalTests.csproj" />
+    <Project Path="tests/Minerva.GestaoPedidos.IntegrationTests/Minerva.GestaoPedidos.IntegrationTests.csproj" />
+    <Project Path="tests/Minerva.GestaoPedidos.UnitTests/Minerva.GestaoPedidos.UnitTests.csproj" />
+  </Folder>
+</Solution>

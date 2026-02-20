@@ -1,0 +1,13 @@
+namespace Minerva.GestaoPedidos.Infrastructure.Identity.Configurations;
+
+/// <summary>
+/// Configurações do JWT (bind do appsettings "Jwt"). Isolado na Infrastructure por ser detalhe tecnológico.
+/// </summary>
+public class JwtSettings
+{
+    public const string SectionName = "Jwt";
+    public string Secret { get; set; } = string.Empty;
+    public string Issuer { get; set; } = string.Empty;
+    public string Audience { get; set; } = string.Empty;
+    public int ExpirationMinutes { get; set; } = 60;
+}

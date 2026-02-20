@@ -1,0 +1,21 @@
+# Front-end Minerva (React/Vite). API fica no projeto do back-end.
+# Variáveis: crie .env com VITE_API_URL (ex: http://localhost:5002 ou http://localhost:5002/api).
+
+services:
+  minerva_frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Repasse para o estágio de build; Vite injeta em import.meta.env.VITE_API_URL
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:5002/api}
+    container_name: minerva_frontend
+    ports:
+      - "3000:80"
+    networks:
+      - minerva_net
+    restart: unless-stopped
+
+networks:
+  minerva_net:
+    driver: bridge

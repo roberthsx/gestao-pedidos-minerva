@@ -1,0 +1,36 @@
+# Build and run Minerva.GestaoPedidos.Worker (consumer Kafka order-created, DeliveryTerms).
+# Solução única: todo o run do Worker é definido aqui (ENTRYPOINT direto na app).
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+EXPOSE 8080
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+
+COPY ["src/Worker/Minerva.GestaoPedidos.Worker/Minerva.GestaoPedidos.Worker.csproj", "src/Worker/Minerva.GestaoPedidos.Worker/"]
+COPY ["src/Core/Minerva.GestaoPedidos.Domain/Minerva.GestaoPedidos.Domain.csproj", "src/Core/Minerva.GestaoPedidos.Domain/"]
+COPY ["src/Infrastructure/Minerva.GestaoPedidos.Infrastructure/Minerva.GestaoPedidos.Infrastructure.csproj", "src/Infrastructure/Minerva.GestaoPedidos.Infrastructure/"]
+COPY ["src/Core/Minerva.GestaoPedidos.Application/Minerva.GestaoPedidos.Application.csproj", "src/Core/Minerva.GestaoPedidos.Application/"]
+
+RUN dotnet restore "src/Worker/Minerva.GestaoPedidos.Worker/Minerva.GestaoPedidos.Worker.csproj"
+
+COPY . .
+
+WORKDIR "/src/src/Worker/Minerva.GestaoPedidos.Worker"
+RUN dotnet build "Minerva.GestaoPedidos.Worker.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "Minerva.GestaoPedidos.Worker.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+# start-period alto: Worker pode esperar Postgres/Kafka antes de responder no /health/live
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=5 \
+  CMD curl -f http://localhost:8080/health/live || exit 1
+
+ENTRYPOINT ["dotnet", "Minerva.GestaoPedidos.Worker.dll"]

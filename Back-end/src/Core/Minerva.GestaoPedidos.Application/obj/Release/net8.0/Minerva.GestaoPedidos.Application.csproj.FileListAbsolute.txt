@@ -1,0 +1,15 @@
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\bin\Release\net8.0\Minerva.GestaoPedidos.Application.deps.json
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\bin\Release\net8.0\Minerva.GestaoPedidos.Application.dll
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\bin\Release\net8.0\Minerva.GestaoPedidos.Application.pdb
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\bin\Release\net8.0\Minerva.GestaoPedidos.Domain.dll
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\bin\Release\net8.0\Minerva.GestaoPedidos.Domain.pdb
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\Minerva.GestaoPedidos.Application.csproj.AssemblyReference.cache
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\Minerva.GestaoPedidos.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\Minerva.GestaoPedidos.Application.AssemblyInfoInputs.cache
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\Minerva.GestaoPedidos.Application.AssemblyInfo.cs
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\Minerva.GestaoPedidos.Application.csproj.CoreCompileInputs.cache
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\Minerva..7B18F1E4.Up2Date
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\Minerva.GestaoPedidos.Application.dll
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\refint\Minerva.GestaoPedidos.Application.dll
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\Minerva.GestaoPedidos.Application.pdb
+D:\projetos\Minerva\Back-end\src\Core\Minerva.GestaoPedidos.Application\obj\Release\net8.0\ref\Minerva.GestaoPedidos.Application.dll

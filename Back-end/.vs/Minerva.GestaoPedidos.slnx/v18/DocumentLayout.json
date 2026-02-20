@@ -1,0 +1,194 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\projetos\\Minerva\\Back-end\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7DB9D0A4-B20B-1183-8DA5-7E6EF95B883E}|tests\\Minerva.GestaoPedidos.FunctionalTests\\Minerva.GestaoPedidos.FunctionalTests.csproj|d:\\projetos\\minerva\\back-end\\tests\\minerva.gestaopedidos.functionaltests\\helpers\\authhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7DB9D0A4-B20B-1183-8DA5-7E6EF95B883E}|tests\\Minerva.GestaoPedidos.FunctionalTests\\Minerva.GestaoPedidos.FunctionalTests.csproj|solutionrelative:tests\\minerva.gestaopedidos.functionaltests\\helpers\\authhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|d:\\projetos\\minerva\\back-end\\src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\core\\kafkaproducerservice.loggermessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|solutionrelative:src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\core\\kafkaproducerservice.loggermessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|d:\\projetos\\minerva\\back-end\\src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\core\\kafkamessagebus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|solutionrelative:src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\core\\kafkamessagebus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E70641-E037-9832-B407-0BD9E87646F3}|src\\Worker\\Minerva.GestaoPedidos.Worker\\Minerva.GestaoPedidos.Worker.csproj|d:\\projetos\\minerva\\back-end\\src\\worker\\minerva.gestaopedidos.worker\\ordercreatedkafkaconsumerhostedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91E70641-E037-9832-B407-0BD9E87646F3}|src\\Worker\\Minerva.GestaoPedidos.Worker\\Minerva.GestaoPedidos.Worker.csproj|solutionrelative:src\\worker\\minerva.gestaopedidos.worker\\ordercreatedkafkaconsumerhostedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91E70641-E037-9832-B407-0BD9E87646F3}|src\\Worker\\Minerva.GestaoPedidos.Worker\\Minerva.GestaoPedidos.Worker.csproj|d:\\projetos\\minerva\\back-end\\src\\worker\\minerva.gestaopedidos.worker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91E70641-E037-9832-B407-0BD9E87646F3}|src\\Worker\\Minerva.GestaoPedidos.Worker\\Minerva.GestaoPedidos.Worker.csproj|solutionrelative:src\\worker\\minerva.gestaopedidos.worker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|d:\\projetos\\minerva\\back-end\\src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\core\\kafkaproducerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|solutionrelative:src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\core\\kafkaproducerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|d:\\projetos\\minerva\\back-end\\src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\mappers\\ordertokafkaorderapprovedpayloadmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|solutionrelative:src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\mappers\\ordertokafkaorderapprovedpayloadmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|d:\\projetos\\minerva\\back-end\\src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\mappers\\ordertokafkaordercreatedpayloadmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{340C979F-4FCF-F19D-DEB5-4BA74CDF7343}|src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Minerva.GestaoPedidos.Infrastructure.csproj|solutionrelative:src\\infrastructure\\minerva.gestaopedidos.infrastructure\\messaging\\kafka\\mappers\\ordertokafkaordercreatedpayloadmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 348,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthHelper.cs",
+              "DocumentMoniker": "D:\\projetos\\Minerva\\Back-end\\tests\\Minerva.GestaoPedidos.FunctionalTests\\Helpers\\AuthHelper.cs",
+              "RelativeDocumentMoniker": "tests\\Minerva.GestaoPedidos.FunctionalTests\\Helpers\\AuthHelper.cs",
+              "ToolTip": "D:\\projetos\\Minerva\\Back-end\\tests\\Minerva.GestaoPedidos.FunctionalTests\\Helpers\\AuthHelper.cs",
+              "RelativeToolTip": "tests\\Minerva.GestaoPedidos.FunctionalTests\\Helpers\\AuthHelper.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAIAwwCsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-19T00:34:46.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OrderCreatedKafkaConsumerHostedService.cs",
+              "DocumentMoniker": "D:\\projetos\\Minerva\\Back-end\\src\\Worker\\Minerva.GestaoPedidos.Worker\\OrderCreatedKafkaConsumerHostedService.cs",
+              "RelativeDocumentMoniker": "src\\Worker\\Minerva.GestaoPedidos.Worker\\OrderCreatedKafkaConsumerHostedService.cs",
+              "ToolTip": "D:\\projetos\\Minerva\\Back-end\\src\\Worker\\Minerva.GestaoPedidos.Worker\\OrderCreatedKafkaConsumerHostedService.cs",
+              "RelativeToolTip": "src\\Worker\\Minerva.GestaoPedidos.Worker\\OrderCreatedKafkaConsumerHostedService.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAowC8AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T23:15:49.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\projetos\\Minerva\\Back-end\\src\\Worker\\Minerva.GestaoPedidos.Worker\\Program.cs",
+              "RelativeDocumentMoniker": "src\\Worker\\Minerva.GestaoPedidos.Worker\\Program.cs",
+              "ToolTip": "D:\\projetos\\Minerva\\Back-end\\src\\Worker\\Minerva.GestaoPedidos.Worker\\Program.cs",
+              "RelativeToolTip": "src\\Worker\\Minerva.GestaoPedidos.Worker\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T21:58:45.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "KafkaMessageBus.cs",
+              "DocumentMoniker": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaMessageBus.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaMessageBus.cs",
+              "ToolTip": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaMessageBus.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaMessageBus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T21:37:24.969Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrderToKafkaOrderCreatedPayloadMapper.cs",
+              "DocumentMoniker": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderCreatedPayloadMapper.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderCreatedPayloadMapper.cs",
+              "ToolTip": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderCreatedPayloadMapper.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderCreatedPayloadMapper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T21:36:49.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OrderToKafkaOrderApprovedPayloadMapper.cs",
+              "DocumentMoniker": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderApprovedPayloadMapper.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderApprovedPayloadMapper.cs",
+              "ToolTip": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderApprovedPayloadMapper.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Mappers\\OrderToKafkaOrderApprovedPayloadMapper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T21:36:41.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "KafkaProducerService.LoggerMessage.cs",
+              "DocumentMoniker": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.LoggerMessage.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.LoggerMessage.cs",
+              "ToolTip": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.LoggerMessage.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.LoggerMessage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T21:35:04.118Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "KafkaProducerService.cs",
+              "DocumentMoniker": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.cs",
+              "ToolTip": "D:\\projetos\\Minerva\\Back-end\\src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Minerva.GestaoPedidos.Infrastructure\\Messaging\\Kafka\\Core\\KafkaProducerService.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T21:35:01.544Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 348,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
