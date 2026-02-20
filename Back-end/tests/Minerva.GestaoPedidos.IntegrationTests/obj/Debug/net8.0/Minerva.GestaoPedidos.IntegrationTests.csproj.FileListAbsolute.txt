@@ -1,8 +1,0 @@
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.IntegrationTests\bin\Debug\net8.0\CoverletSourceRootsMapping_Minerva.GestaoPedidos.IntegrationTests
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.IntegrationTests\obj\Debug\net8.0\Minerva.GestaoPedidos.IntegrationTests.csproj.AssemblyReference.cache
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.IntegrationTests\obj\Debug\net8.0\MvcTestingAppManifest.json
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.IntegrationTests\obj\Debug\net8.0\Minerva.GestaoPedidos.IntegrationTests.GeneratedMSBuildEditorConfig.editorconfig
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.IntegrationTests\obj\Debug\net8.0\Minerva.GestaoPedidos.IntegrationTests.AssemblyInfoInputs.cache
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.IntegrationTests\obj\Debug\net8.0\Minerva.GestaoPedidos.IntegrationTests.AssemblyInfo.cs
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.IntegrationTests\obj\Debug\net8.0\Minerva.GestaoPedidos.IntegrationTests.csproj.CoreCompileInputs.cache
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.IntegrationTests\obj\Debug\net8.0\Minerva.GestaoPedidos.IntegrationTests.sourcelink.json
