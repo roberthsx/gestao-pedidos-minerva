@@ -1,7 +1,0 @@
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.UnitTests\bin\Debug\net8.0\CoverletSourceRootsMapping_Minerva.GestaoPedidos.UnitTests
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.UnitTests\obj\Debug\net8.0\Minerva.GestaoPedidos.UnitTests.csproj.AssemblyReference.cache
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.UnitTests\obj\Debug\net8.0\Minerva.GestaoPedidos.UnitTests.GeneratedMSBuildEditorConfig.editorconfig
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.UnitTests\obj\Debug\net8.0\Minerva.GestaoPedidos.UnitTests.AssemblyInfoInputs.cache
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.UnitTests\obj\Debug\net8.0\Minerva.GestaoPedidos.UnitTests.AssemblyInfo.cs
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.UnitTests\obj\Debug\net8.0\Minerva.GestaoPedidos.UnitTests.csproj.CoreCompileInputs.cache
-D:\projetos\Minerva\Back-end\tests\Minerva.GestaoPedidos.UnitTests\obj\Debug\net8.0\Minerva.GestaoPedidos.UnitTests.sourcelink.json
